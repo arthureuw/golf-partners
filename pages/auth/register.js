@@ -17,7 +17,7 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.post(`http://localhost:1337/api/auth/local/register`, credentials).then((res) => {
+    API.post(`auth/local/register`, credentials).then((res) => {
       Router.push('/');
     }).catch((err) => {
       setError(err.response.data.error.message);
@@ -25,7 +25,7 @@ const Register = () => {
   };
 
   useEffect(() => {
-    API.get(`http://localhost:1337/api/golf-clubs`).then(({data}) => {
+    API.get(`golf-clubs`).then(({data}) => {
       setClubs(data.data);
     })
   }, [])

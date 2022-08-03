@@ -13,10 +13,10 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.post(`http://localhost:1337/api/auth/local`, credentials).then((res) => {
+    API.post(`auth/local`, credentials).then((res) => {
       Router.push('/');
     }).catch((err) => {
-      setError(err.response.data.error.message);
+      // setError(err.response.data.error.message);
     })
   };
 

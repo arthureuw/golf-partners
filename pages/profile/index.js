@@ -13,10 +13,10 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    API.get(`http://localhost:1337/api/golf-clubs`).then(({data}) => {
+    API.get(`golf-clubs`).then(({data}) => {
       setClubs(data.data);
     })
-    API.get(`http://localhost:1337/api/users/me`).then((res) => {
+    API.get(`users/me`).then((res) => {
       setUser(res);
       console.log(res);
     }).catch((err) => {
