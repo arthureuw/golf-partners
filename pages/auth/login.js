@@ -19,7 +19,7 @@ const Login = () => {
       password: credentials.password,
     });
     if (result.ok) {
-      Router.push('/');
+      Router.push('/dashboard');
       return;
     }
     alert('Credential is not valid');
@@ -59,7 +59,7 @@ const Login = () => {
         <Spacer y={1}/>
         <Button
           type="button"
-          onClick={() => {
+          onPress={() => {
             Router.push('/auth/register');
           }}
         >

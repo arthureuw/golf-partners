@@ -4,24 +4,32 @@ import { Login } from '../../../lib/auth';
 
 export default NextAuth({
   // Configure one or more authentication providers
+  pages: {
+    callbacks: {
+      async redirect({ url, baseUrl }) {
+        // Allows relative callback URLs
+        if (url.startsWith("/")) return `${baseUrl}${url}`
+        // Allows callback URLs on the same origin
+        else if (new URL(url).origin === baseUrl) return url
+        return baseUrl
+      }
+    },
+    signIn: '/auth/login',
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
   providers: [
     CredentialsProvider({
-      name: 'Sign in with Email',
+      name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'text' },
+        email: { label: 'Email', type: 'text', placeholder: 'email@example.com' },
         password: { label: 'Password', type: 'password' },
       },
+
       async authorize(credentials) {
-        /**
-         * This function is used to define if the user is authenticated or not.
-         * If authenticated, the function should return an object contains the user data.
-         * If not, the function should return `null`.
-         */
         if (credentials == null) return null;
-        /**
-         * credentials is defined in the config above.
-         * We can expect it contains two properties: `email` and `password`
-         */
         try {
           const { user, jwt } = await Login({
             email: credentials.email,

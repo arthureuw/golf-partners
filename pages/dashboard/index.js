@@ -2,7 +2,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-export default function Home() {
+export default function Dashboard() {
   const { data: session } = useSession();
 
   return (
@@ -37,3 +37,5 @@ export default function Home() {
     </div>
   );
 }
+
+Dashboard.auth = true;
