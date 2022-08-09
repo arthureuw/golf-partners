@@ -1,20 +1,14 @@
 import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 export default function Home() {
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (session == null) return;
-    console.log('session.jwt', session);
-  }, [session]);
-
   return (
     <div>
       <Head>
-        <title>Strapi - Next - NextAuth</title>
+        <title>Strapi - Next - NextAuth {process.env.NEXTAUTH_SECRET}</title>
       </Head>
       <h1>{session ? 'Authenticated' : 'Not Authenticated'}</h1>
       {session && (
@@ -31,7 +25,7 @@ export default function Home() {
           <button>Sign In</button>
         </Link>
       )}
-      <Link href="/dashboard">
+      <Link href="/protected">
         <button
           style={{
             marginTop: 10,
